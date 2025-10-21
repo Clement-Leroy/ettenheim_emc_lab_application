@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EMC Lab Ettenheim | Welcome</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #4ca1af);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: fixed;
+    }
+
+    .glow::before,
+    .glow::after {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.6;
+      z-index: 0;
+    }
+
+    .glow::before {
+      top: -100px;
+      left: -100px;
+      background: #ff6f61;
+      animation: pulse 5s infinite alternate;
+    }
+
+    .glow::after {
+      bottom: 50px;
+      right: -100px;
+      background: #3cc781;
+      animation: pulse 4s infinite alternate 2s;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.3; }
+      100% { transform: scale(1.2); opacity: 0.6; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .logo {
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 5.1333rem;
+      margin: 10px 0;
+    }
+
+    .tagline {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      opacity: 0.85;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .button-group a {
+      text-decoration: none;
+      background: #ff6f61;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 2rem;
+      transition: background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 5px 15px rgba(255,111,97,0.6);
+    }
+
+    .button-group a:hover {
+      background: #ff4b3e;
+      box-shadow: 0 8px 25px rgba(255,75,62,0.8);
+    }
+
+    .button-login {
+      width: 200px
+    }
+
+    .button-register {
+      width: 200px
+    }
+
+    footer {
+      position: absolute;
+      bottom: 5px;
+      font-size: 1rem;
+      opacity: 0.7;
+      text-align: center;
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="glow">
+
+  <div class="container">
+    <img src="{{ url_for('static', filename='MPS_white.png') }}" alt="MPS Logo" class="logo" />
+    <h1>EMC Lab Ettenheim</h1>
+    <p class="tagline">Powered by Monolithic Power Systems</p>
+    <div class="button-group">
+      <a class="button-login" href="/login">Login</a>
+      <a class="button-register" href="/register">Register</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; {{ year }} Monolithic Power Systems, Inc. All rights reserved.
+  </footer>
+
+</body>
