@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emc-lab-application
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emc-lab-application
+  template:
+    metadata:
+      labels:
+        app: emc-lab-application
+    spec:
+      containers:
+      - name: emc-lab-application
+        image: ettenheim_emc_lab_application-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: emc-lab-application
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+    nodePort: 30001
+  selector:
+    app: emc-lab-application
