@@ -3,7 +3,7 @@ version: '3.8'
 services:
   app:
     build: ./
-    container_name: emc_lab_project_application
+    container_name: emc_lab_application
     ports:
       - "5000:5000"
     depends_on:
@@ -12,7 +12,7 @@ services:
   database:
     image: mysql:8
     restart: always
-    container_name: emc_lab_project_database
+    container_name: emc_lab_database
     environment:
       MYSQL_DATABASE: emc_lab_database
       MYSQL_ROOT_PASSWORD: root
