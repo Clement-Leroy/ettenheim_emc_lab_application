@@ -10,7 +10,7 @@ services:
       - database
 
   database:
-    image: mysql:8
+    image: mysql:latest
     restart: always
     container_name: emc_lab_database
     environment:
@@ -24,3 +24,4 @@ services:
 volumes:
 
   emc_lab_project_database:
+
