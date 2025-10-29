@@ -22,10 +22,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/ettenheim_emc_lab_application_app
+          images: ettenheim_emc_lab_application_app
           tags: |
             type=raw,value=latest
-            type=sha,format=short
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
