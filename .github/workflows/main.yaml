@@ -38,7 +38,4 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          # Use the kubectl command directly, as it is available on your local machine
-          # and configured by Docker Desktop
-          sed -i "s|<YOUR_DOCKERHUB_USERNAME>/my-app:latest|${{ steps.meta.outputs.tags }}|" k8s/deployment.yaml
-          kubectl apply -f k8s/
+          kubectl apply -f ettenheim_emc_lab_k8s/app-deployment.yaml
