@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-deploy:
-    # Change 'ubuntu-latest' to 'self-hosted'
+    # Change 'ubuntu-latest' to 'self-hosted'test
     runs-on: self-hosted
     steps:
       - name: Checkout code
