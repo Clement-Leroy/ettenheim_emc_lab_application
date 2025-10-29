@@ -22,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/my-app
+          images: $ettenheim_emc_lab_application_app
           tags: |
             type=raw,value=latest
             type=sha,format=short
