@@ -1,6 +1,5 @@
 name: CI/CD Pipeline
 
-# Trigger the workflow on pushes to the main branch
 on:
   push:
     branches:
@@ -8,7 +7,8 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    # Change 'ubuntu-latest' to 'self-hosted'
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -36,18 +36,9 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'v1.27.0'
-
-      - name: Configure Kubeconfig
-        run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
-
       - name: Deploy to Kubernetes
         run: |
-          # Replace the image tag in the manifest with the new one
+          # Use the kubectl command directly, as it is available on your local machine
+          # and configured by Docker Desktop
           sed -i "s|<YOUR_DOCKERHUB_USERNAME>/my-app:latest|${{ steps.meta.outputs.tags }}|" k8s/deployment.yaml
           kubectl apply -f k8s/
