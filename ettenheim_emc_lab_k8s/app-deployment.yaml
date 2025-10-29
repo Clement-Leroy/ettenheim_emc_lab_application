@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: emc-lab-application
-        image: ettenheim_emc_lab_application:latest
+        image: clementmps/ettenheim_emc_lab_application:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
@@ -40,4 +40,5 @@ spec:
   selector:
 
     app: emc-lab-application
+
 
