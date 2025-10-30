@@ -1,5 +1,5 @@
 name: Build and Deploy to Minikube
-
+#test
 on:
   push:
     branches:
@@ -32,4 +32,5 @@ jobs:
         run: |
 
           kubectl apply -f ettenheim_emc_lab_k8s/app-deployment.yaml
+
 
