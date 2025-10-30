@@ -31,8 +31,10 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f ettenheim_emc_lab_k8s/app-deployment.yaml
+          sleep 10
 
       - name: Start port forwarding
         run: |
           nohup kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8000:5000 > /dev/null &
+
 
