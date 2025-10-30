@@ -34,4 +34,5 @@ jobs:
 
       - name: Start port forwarding
         run: |
-          kubectl port-forward --address 0.0.0.0 service/ettenheim-emc-lab-service 8000:5000 &
+          nohup kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8000:5000 > /dev/null &
+
