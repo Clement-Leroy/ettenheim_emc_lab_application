@@ -24,11 +24,12 @@ jobs:
           # Minikube requires using its own Docker daemon
           eval $(minikube -p minikube docker-env)
           # Build the image using the Minikube daemon
-          docker build -t clementmps/ettenheim_emc_lab_application:latest .
+          docker build -t ettenheim_emc_lab_application:latest .
           # Push the image to Docker Hub
-          docker push clementmps/ettenheim_emc_lab_application}:latest
+          docker push ettenheim_emc_lab_application}:latest
 
       - name: Deploy to Kubernetes
         run: |
 
           kubectl apply -f ettenheim_emc_lab_k8s/app-deployment.yaml
+
