@@ -20,10 +20,10 @@ import io
 from sqlalchemy import create_engine, text
 
 connection = pymysql.connect(
-       host='database',
+       host='localhost',
        port=3306,
        user='root',
-       password="root",
+       password="password",
        db='emc_lab_database',
        cursorclass=pymysql.cursors.DictCursor,
         connect_timeout = 30,
@@ -201,16 +201,19 @@ ok_project_description_btn = html.Button('Update', id='close_project_description
 cancel_project_description_btn = html.Div(html.Button('Cancel',id='cancel_project_description_btn',n_clicks=0,style={'width':'150px','borderRadius':'5px', 'margin-right': 10}))
 remove_project_btn = html.Div(html.Button('Remove project',id='remove_project',n_clicks=0,style={'width':'150px','borderRadius':'5px'}))
 
-project_description = html.Div([
-                    dbc.Stack([project_description_label], direction='horizontal', style={'margin-bottom':10, 'margin-left':10}),
-                    dbc.Stack([project_input, project_ID, location_input, project_manager_input, start_date_input, stop_date_input], direction='horizontal',gap=3, style={'margin-bottom':10}),
-                    dbc.Stack([category_input, type_input, client_input, PO_input, PL_input, status_input], direction='horizontal',gap=3, style={'margin-bottom':10}),
-                    dbc.Stack([quote_input, quote2_input, draft_input,report_input, invoice_input, contact_input], direction='horizontal',gap=3, style={'margin-bottom':10}),
-                    dbc.Stack([add_test_service_btn, remove_test_service_btn], direction='horizontal'),
-                    project_table,
-                    dbc.Stack([ok_project_description_btn, cancel_project_description_btn, remove_project_btn, time_input], direction='horizontal',gap=1),
-                                ],
-                              id='project_description', style={'width':1100,'display':'none','position':'fixed','top':'25%','left':'30%','backgroundColor':"#e0e0e0",'padding':'10px 10px','boxShadow':'0px 4px 8px rgba(0,0,0,0.1)','zIndex':'2002','borderRadius':'8px','overflow':'auto'}
+project_description = dbc.Modal(centered=True, size='xl', backdrop='static', keyboard=False, children=[
+                    dbc.ModalHeader([
+                        project_description_label
+                    ], close_button=False, style={'margin-bottom':10, 'margin-left':10}),
+                    dbc.ModalBody([
+                        dbc.Stack([project_input, project_ID, location_input, project_manager_input, start_date_input, stop_date_input], direction='horizontal',gap=3, style={'margin-bottom':10}),
+                        dbc.Stack([category_input, type_input, client_input, PO_input, PL_input, status_input], direction='horizontal',gap=3, style={'margin-bottom':10}),
+                        dbc.Stack([quote_input, quote2_input, draft_input,report_input, invoice_input, contact_input], direction='horizontal',gap=3, style={'margin-bottom':10}),
+                        dbc.Stack([add_test_service_btn, remove_test_service_btn], direction='horizontal'),
+                        project_table,
+                        dbc.Stack([ok_project_description_btn, cancel_project_description_btn, remove_project_btn, time_input], direction='horizontal',gap=1)
+                    ]),
+                                ], id='project_description', style={'padding':'10px 10px','boxShadow':'0px 4px 8px rgba(0,0,0,0.1)'}
 )
 
 def lab_member_list_fct(project_data):
@@ -632,7 +635,7 @@ def init_app(server):
 
         ], style={'display': 'block', 'flexDirection': 'column', 'minHeight': '100vh', 'margin-bottom':'20px', 'margin-top': '20px'})
 
-    @app.callback(Output('project_description', 'style'),
+    @app.callback(Output('project_description', 'is_open'),
               Output('project_description_label', 'children'),
               Output("project_list_table", 'rowData'),
               Output("project_table", 'rowData', allow_duplicate=True),
@@ -672,7 +675,7 @@ def init_app(server):
               Input("type_description_input", 'value'),
               Input("client_description_input", 'value'),
 
-              State('project_description', 'style'),
+              State('project_description', 'is_open'),
               State("project_list_table", 'rowData'),
               State("project_table", 'rowData'),
 
@@ -704,7 +707,7 @@ def init_app(server):
               )
     def show_project(project_btn, ok_project_description_btn, add_test_service_btn, remove_test_service_btn,
                      cancel_project_description_btn, project_table_cellValueChanged, type_input, client_input,
-                     project_description_style, project_list_table_rowData, project_table_rowData, start_date_input,
+                     project_description_isopen, project_list_table_rowData, project_table_rowData, start_date_input,
                      stop_date_input, project_input, project_id_input, location_input, project_manager_input,
                      category_input, PL_input, contact_input, quote_input, quote2_input, PO_input, draft_input,
                      report_input, time_input, invoice_input, status_input, loading_screen_children,
@@ -772,12 +775,12 @@ def init_app(server):
 
             time_input = time
 
-            project_description_style['display'] = 'block'
+            project_description_isopen = True
 
         elif triggered_id == 'close_project_description_btn':
 
             try:
-                project_description_style['display'] = 'none'
+                project_description_isopen = False
                 for index, project in enumerate(project_list_table_rowData):
                     if project['Number'] == project_number:
                         project = {
@@ -877,7 +880,7 @@ def init_app(server):
             status_input = None
             start_date_input, stop_date_input = None, None
 
-            project_description_style['display'] = 'none'
+            project_description_isopen = False
 
             project_list_table_rowData = no_update
 
@@ -886,7 +889,7 @@ def init_app(server):
 
         else:
             raise PreventUpdate
-        return project_description_style, project_description_label_children, project_list_table_rowData, project_table_rowData, start_date_input, stop_date_input, project_input, project_id_input, location_input, project_manager_input, category_input, type_input, client_input, PL_input, contact_input, quote_input, quote2_input, PO_input, draft_input, report_input, time_input, invoice_input, status_input, project_number, loading_screen_children, loading_screen_style
+        return project_description_isopen, project_description_label_children, project_list_table_rowData, project_table_rowData, start_date_input, stop_date_input, project_input, project_id_input, location_input, project_manager_input, category_input, type_input, client_input, PL_input, contact_input, quote_input, quote2_input, PO_input, draft_input, report_input, time_input, invoice_input, status_input, project_number, loading_screen_children, loading_screen_style
 
     def add_quote(type_input, client_input):
         if type_input == 'Paid' and client_input == 'EXT':
@@ -1317,10 +1320,10 @@ def init_app(server):
               State("project_list_table", 'rowData'),
               State("loading-screen", 'style'),
               State("project_number", 'data'),
-              State('project_description', 'style'),
+              State('project_description', 'is_open'),
               prevent_initial_call=True)
     def remove_project(remove_project, project_list_table_rowData, loading_screen_style, project_number,
-                       project_description_style):
+                       project_description_isopen):
         if remove_project != 0:
             try:
                 for project in project_list_table_rowData:
@@ -1344,7 +1347,7 @@ def init_app(server):
                 #     cursor.execute(sql, (row_index + 1, row_index + 2))
                 #     connection.commit()
 
-                project_description_style['display'] = 'none'
+                project_description_isopen = False
 
                 loading_screen_children, loading_screen_style['backgroundColor'] = [check,
                                                                                     " Project successfully removed"], 'green'
@@ -1355,7 +1358,7 @@ def init_app(server):
 
         else:
             raise PreventUpdate
-        return project_list_table_rowData, loading_screen_children, loading_screen_style, project_description_style
+        return project_list_table_rowData, loading_screen_children, loading_screen_style, project_description_isopen
 
 
     @app.callback(Output("project_timeline", 'figure', allow_duplicate=True),
