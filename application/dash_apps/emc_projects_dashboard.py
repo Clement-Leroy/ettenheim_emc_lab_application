@@ -20,10 +20,10 @@ import io
 from sqlalchemy import create_engine, text
 
 connection = pymysql.connect(
-       host='localhost',
+       host='database',
        port=3306,
        user='root',
-       password="password",
+       password="root",
        db='emc_lab_database',
        cursorclass=pymysql.cursors.DictCursor,
         connect_timeout = 30,
@@ -1438,3 +1438,4 @@ def init_app(server):
         return chart_figure
 
     return app.server
+
