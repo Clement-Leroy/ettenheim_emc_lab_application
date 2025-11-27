@@ -1,4 +1,4 @@
-flask
+yflask
 flask_sqlalchemy
 flask_login
 flask_mail
@@ -22,3 +22,4 @@ itsdangerous
 wtforms
 sqlalchemy
 numpy
+celery
