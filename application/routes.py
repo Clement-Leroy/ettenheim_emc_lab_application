@@ -8,13 +8,13 @@ from flask_mail import Message, Mail
 from application import server, db, mail, session
 from application.models import Users, History, Instrument
 from itsdangerous import URLSafeTimedSerializer as Serializer
-from application.dash_apps import instrument_app, energy_app, emc_emission_with_bands, emc_projects_dashboard, data_visualization, motor_driver_report
+from application.dash_apps import instrument_app, energy_app, emc_emission_with_bands, emc_projects_dashboard, motor_driver_report
 from application.log_events import log_event
 
 from application import server
 
 with server.app_context():
-    data_visualization.init_app(server)
+    # data_visualization.init_app(server)
 
     energy_app.init_app(server)
 
@@ -398,13 +398,14 @@ def emc_project_dashboard_interface():
 # def data_file_interface():
 #     return render_template('data_file_interface.html')
 
-@server.route('/data_visualization_interface', methods=['GET', 'POST'])
-@login_required
-def data_visualization_interface():
-    return render_template('data_visualization_interface.html')
+# @server.route('/data_visualization_interface', methods=['GET', 'POST'])
+# @login_required
+# def data_visualization_interface():
+#     return render_template('data_visualization_interface.html')
 
 @server.route('/motor_driver_report_interface', methods=['GET', 'POST'])
 @login_required
 def motor_driver_report_interface():
     return render_template('motor_driver_report_interface.html')
+
 
