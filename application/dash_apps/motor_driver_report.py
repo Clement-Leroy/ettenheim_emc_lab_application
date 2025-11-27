@@ -1,15 +1,8 @@
 import numpy as np
-import csv
 import pandas as pd
-import os
 import plotly.graph_objects as go
-import webbrowser
-import signal
-#import threading
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
-
-from IPython.display import display, HTML
 from dash import Dash, html, dcc, Input, Output, State
 import base64
 import io
@@ -509,5 +502,6 @@ def init_app(server):
         )
 
         return fig
+
 
     return app.server
