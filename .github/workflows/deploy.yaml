@@ -40,11 +40,11 @@ jobs:
           kubectl apply -f ettenheim_emc_lab_k8s/redis.yaml
           kubectl apply -f ettenheim_emc_lab_k8s/celery_worker.yaml
 
-      # - name: Start port forwarding
-      #   run: |
-      #     sleep 10
-      #     kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8001:5000
-      #     sleep 5
+      - name: Start port forwarding
+        run: |
+          sleep 10
+          kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8001:5000
+
 
 
 
