@@ -11,8 +11,8 @@ def create_app() -> Flask:
     app = Flask(__name__)
     app.config.from_mapping(
         CELERY=dict(
-            broker_url="redis://localhost",
-            result_backend="redis://localhost",
+            broker_url="redis://6379/0",
+            result_backend="redis://redis:6379/1",
             task_ignore_result=True,
         ),
     )
@@ -23,9 +23,9 @@ def create_app() -> Flask:
 server = create_app()
 ckeditor = CKEditor(server)
 # server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@database:3306/emc_lab_database'
-server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:password@localhost:3306/emc_lab_database'
+server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@database:3306/emc_lab_database'
 server.config['SECRET_KEY'] = "my super secret key that no one is supposed to know"
-server.config['SECRET_NAME'] = 'localhost:5000'
+server.config['SECRET_NAME'] = 'secret'
 server.config['APPLICATION_ROOT'] = '/'
 server.config['PREFERED_URL_SCHEME'] = 'http'
 
@@ -51,6 +51,7 @@ mail = Mail(server)
 session = {}
 
 from application import routes
+
 
 
 
