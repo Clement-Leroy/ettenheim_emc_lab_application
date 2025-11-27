@@ -20,7 +20,7 @@ selected_data = {}
 suspect_data = {}
 
 limit_engine = create_engine(
-    'mysql+pymysql://root:password@localhost:3306/emc_lab_database',
+    'mysql+pymysql://root:root@database:3306/emc_lab_database',
      pool_recycle = 3600
 )
 
@@ -1879,3 +1879,4 @@ def init_app(server):
         return line_param_1, line_param_2, btn_txt_1, btn_txt_2
 
     return app.server
+
