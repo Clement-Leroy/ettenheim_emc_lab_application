@@ -8,20 +8,25 @@ from flask_mail import Message, Mail
 from application import server, db, mail, session
 from application.models import Users, History, Instrument
 from itsdangerous import URLSafeTimedSerializer as Serializer
-from application.dash_apps import instrument_app, energy_app, emc_emission_with_bands, emc_projects_dashboard
+from application.dash_apps import instrument_app, energy_app, emc_emission_with_bands, emc_projects_dashboard, data_file, data_visualization, motor_driver_report
 from application.log_events import log_event
 
 from application import server
 
 with server.app_context():
-
-    instrument_app.init_app(server)
+    data_visualization.init_app(server)
 
     energy_app.init_app(server)
 
     emc_emission_with_bands.init_app(server)
 
     emc_projects_dashboard.init_app(server)
+
+    instrument_app.init_app(server)
+
+    data_file.init_app(server)
+
+    motor_driver_report.init_app(server)
 
 
 @server.route('/')
@@ -246,6 +251,9 @@ def home():
             'image': 'data_visualization.avif',
             'subcategories': {
                 'EMC Lab | Emission With Bands': 'emc_emission_with_bands_interface',
+                'EMC Lab | Data File': 'data_file_interface',
+                'EMC Lab | Data Visualization': 'data_visualization_interface',
+                'Motor Driver | Motor Driver Report': 'motor_driver_report_interface'
             }
         },
         'Lab_Management': {
@@ -362,13 +370,12 @@ admin.add_view(ModelView(Users, db.session))
 @server.route('/history')
 @login_required
 def history():
-    events = History.query.order_by(History.timestamp.desc())
+    events = History.query.order_by(History.timestamp.desc()).limit(42)
     return render_template('history.html', events=events)
 
 @server.route('/instrument', methods=['GET', 'POST'])
 @login_required
 def instrument():
-    print('instrument')
     return render_template('instrument.html')
 
 @server.route('/energy_interface', methods=['GET', 'POST'])
@@ -385,3 +392,18 @@ def emc_emission_with_bands():
 @login_required
 def emc_project_dashboard_interface():
     return render_template('emc_project_dashboard_interface.html')
+
+@server.route('/data_file_interface', methods=['GET', 'POST'])
+@login_required
+def data_file_interface():
+    return render_template('data_file_interface.html')
+
+@server.route('/data_visualization_interface', methods=['GET', 'POST'])
+@login_required
+def data_visualization_interface():
+    return render_template('data_visualization_interface.html')
+
+@server.route('/motor_driver_report_interface', methods=['GET', 'POST'])
+@login_required
+def motor_driver_report_interface():
+    return render_template('motor_driver_report_interface.html')
