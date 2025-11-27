@@ -28,6 +28,12 @@ jobs:
           # Push the image to Docker Hub
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/ettenheim_emc_lab_application:latest
 
+      - name: Remove previous deployment
+        run: |
+          kubectl delete service emc-lab-application
+          kubectl delete deployment emc-lab-application
+          sleep 10
+
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f ettenheim_emc_lab_k8s/app-deployment.yaml
@@ -37,6 +43,7 @@ jobs:
       #     sleep 10
       #     kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8001:5000
       #     sleep 5
+
 
 
 
