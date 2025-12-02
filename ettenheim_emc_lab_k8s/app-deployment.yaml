@@ -19,6 +19,13 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
+        ressources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
         env:
           - name: PYTHONUNBUFFERED
             value: "1"
@@ -40,5 +47,6 @@ spec:
   selector:
 
     app: emc-lab-application
+
 
 
