@@ -22,6 +22,5 @@ itsdangerous
 wtforms
 sqlalchemy
 numpy
-celery
-bleach
+
 
