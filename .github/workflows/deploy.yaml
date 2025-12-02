@@ -30,6 +30,7 @@ jobs:
 
       - name: Remove previous deployment
         run: |
+          kubectl delete deployment celery-worker --ignore-not-found
           kubectl delete service emc-lab-application --ignore-not-found
           kubectl delete deployment emc-lab-application --ignore-not-found
           sleep 10
@@ -44,6 +45,7 @@ jobs:
       #   run: |
       #     sleep 10
       #     kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8000:5000
+
 
 
 
