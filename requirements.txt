@@ -23,4 +23,5 @@ wtforms
 sqlalchemy
 numpy
 celery
+bleach
 
