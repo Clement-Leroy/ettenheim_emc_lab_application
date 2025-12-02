@@ -4,23 +4,26 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
-from celery import Celery, Task
-from .extensions import celery_init_app
+# from celery import Celery, Task
+# from .extensions import celery_init_app
 
-def create_app() -> Flask:
-    app = Flask(__name__)
-    app.config.from_mapping(
-        CELERY=dict(
-            broker_url="redis://6379/0",
-            result_backend="redis://redis:6379/1",
-            task_ignore_result=True,
-        ),
-    )
-    app.config.from_prefixed_env()
-    celery_init_app(app)
-    return app
+# def create_app() -> Flask:
+#     app = Flask(__name__)
+#     app.config.from_mapping(
+#         CELERY=dict(
+#             broker_url="redis://6379/0",
+#             result_backend="redis://redis:6379/1",
+#             task_ignore_result=True,
+#         ),
+#     )
+#     app.config.from_prefixed_env()
+#     celery_init_app(app)
+#     return app
 
-server = create_app()
+# server = create_app()
+
+server = Flask(__name__)
+
 ckeditor = CKEditor(server)
 # server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@database:3306/emc_lab_database'
 server.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@database:3306/emc_lab_database'
@@ -51,6 +54,7 @@ mail = Mail(server)
 session = {}
 
 from application import routes
+
 
 
 
