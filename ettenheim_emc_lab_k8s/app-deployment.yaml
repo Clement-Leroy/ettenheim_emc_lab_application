@@ -13,14 +13,16 @@ spec:
       labels:
         app: emc-lab-application
     spec:
-      resources:
-          requests:
-            memory: "512Mi"
-          limits:
-            memory: "1Gi"
       containers:
       - name: emc-lab-application
         image: clementmps/ettenheim_emc_lab_application:latest
+        resources:      
+        requests:        
+          memory: "256Mi"        
+          cpu: "250m"      
+        limits:        
+          memory: "512Mi"        
+          cpu: "500m" 
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
@@ -45,6 +47,7 @@ spec:
   selector:
 
     app: emc-lab-application
+
 
 
 
