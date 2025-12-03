@@ -4,7 +4,7 @@ metadata:
   name: emc-lab-application
   namespace: default
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: emc-lab-application
@@ -40,6 +40,7 @@ spec:
   selector:
 
     app: emc-lab-application
+
 
 
 
