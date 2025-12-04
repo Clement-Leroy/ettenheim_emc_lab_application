@@ -37,6 +37,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
+          kubectl apply -f ettenheim_emc_lab_k8s/db_deployment.yaml
           kubectl apply -f ettenheim_emc_lab_k8s/app-deployment.yaml
           # kubectl apply -f ettenheim_emc_lab_k8s/redis.yaml
           # kubectl apply -f ettenheim_emc_lab_k8s/celery_worker.yaml
@@ -45,6 +46,7 @@ jobs:
       #   run: |
       #     sleep 10
       #     kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8000:5000
+
 
 
 
