@@ -404,8 +404,8 @@ def emc_project_dashboard_interface():
 #     return render_template('data_visualization_interface.html')
 
 @server.route('/motor_driver_report_interface', methods=['GET', 'POST'])
-@login_required
 def motor_driver_report_interface():
     return render_template('motor_driver_report_interface.html')
+
 
 
