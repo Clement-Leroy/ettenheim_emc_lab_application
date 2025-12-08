@@ -858,7 +858,7 @@ def serve_layout():
         defaultColDef={'resizable': True},
         style={'width': '100%', 'height': '100%', 'center': True},
         dangerously_allow_code=True,
-        dashGridOptions={'pagination': True, 'paginationPageSize': 20})
+        dashGridOptions={'pagination': True, 'paginationPageSize': 23})
 
     project_timeline = dcc.Loading(dcc.Graph(id='project_timeline',
                                 figure= create_project_timeline(lab_member_list_fct(read_database("project_tracker")), datetime.datetime(datetime.datetime.now().year,1,1,), datetime.datetime(datetime.datetime.now().year,12,31)),
@@ -948,3 +948,4 @@ def serve_layout():
 
 
     return layout
+
