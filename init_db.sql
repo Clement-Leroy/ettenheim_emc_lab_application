@@ -197,7 +197,7 @@ CREATE TABLE `project_description` (
   `Location2` text,
   `Start Date` datetime DEFAULT NULL,
   `End Date` datetime DEFAULT NULL,
-  `Hours` float NOT NULL DEFAULT '0',
+  `Hours` float,
   `Notes` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -237,7 +237,7 @@ CREATE TABLE `project_tracker` (
   `PO` text,
   `DRAFT` text,
   `Report` text,
-  `Work [hours]` float NOT NULL DEFAULT '0',
+  `Work [hours]` float,
   `Invoice` text,
   `Status` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -321,3 +321,4 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-10-20 15:24:02
+
