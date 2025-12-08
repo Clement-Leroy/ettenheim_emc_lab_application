@@ -94,9 +94,9 @@ def init_app(server):
                   'November', 'December']
 
     while year != today.year or month != today.month:
-        option.append(f'{month_list[month]} {year}')
+        option.append(f'{month_list[month -1]} {year}')
 
-        if month == 11:
+        if month == 12:
             month = 0
             year = year + 1
         else:
