@@ -28,17 +28,17 @@ jobs:
           # Push the image to Docker Hub
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/ettenheim_emc_lab_application:latest
 
-      # - name: Remove previous deployment
-      #   run: |
-      #     # kubectl delete deployment celery-worker --ignore-not-found
-      #     kubectl delete service emc-lab-application --ignore-not-found
-      #     kubectl delete deployment emc-lab-application --ignore-not-found
-      #     sleep 10
+      - name: Remove previous deployment
+        run: |
+          # kubectl delete deployment celery-worker --ignore-not-found
+          kubectl delete service emc-lab-application --ignore-not-found
+          kubectl delete deployment emc-lab-application --ignore-not-found
+          sleep 10
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f ettenheim_emc_lab_k8s/vi_mysql-storage.yaml
-          kubectl apply -f ettenheim_emc_lab_k8s/db_deployment.yaml
+          # kubectl apply -f ettenheim_emc_lab_k8s/vi_mysql-storage.yaml
+          # kubectl apply -f ettenheim_emc_lab_k8s/db_deployment.yaml
           kubectl apply -f ettenheim_emc_lab_k8s/app-deployment.yaml
           # kubectl apply -f ettenheim_emc_lab_k8s/redis.yaml
           # kubectl apply -f ettenheim_emc_lab_k8s/celery_worker.yaml
@@ -47,6 +47,7 @@ jobs:
       #   run: |
       #     sleep 10
       #     kubectl port-forward --address 0.0.0.0 service/emc-lab-application 8000:5000
+
 
 
 
